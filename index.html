@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <title>SANGU – HTML/CSS Playground (Monaco)</title>
+
+  <!-- UI სტილები (Playground-ის ჩარჩო) -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- JSZip ZIP-ისთვის -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <!-- Monaco Editor Loader (VS Code engine) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.0/min/vs/loader.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">SANGU <span>PLAYGROUND</span></div>
+  <div class="topbar-right">
+    <span class="hint">Ctrl+Enter – Run</span>
+
+    <button onclick="downloadCurrentFile()">Download file</button>
+    <button onclick="downloadProjectZip()">Download .zip</button>
+
+    <button onclick="resetProject()">Reset</button>
+    <button class="run-btn" onclick="runProject()">Run ▶</button>
+  </div>
+</div>
+
+<div class="main">
+  <!-- File tree -->
+  <div class="panel panel-files">
+    <div class="panel-header">
+      <span>ფაილები</span>
+      <small id="entryLabel">Entry: index.html</small>
+    </div>
+    <div id="fileList" class="file-list"></div>
+    <div class="file-buttons">
+      <button onclick="addFile()">+ File</button>
+      <button onclick="setEntry()">Set entry</button>
+    </div>
+  </div>
+
+  <!-- Monaco editor -->
+  <div class="panel panel-editor">
+    <div class="panel-header">
+      <span id="currentFileName">Editor</span>
+      <small id="fileTypeLabel"></small>
+    </div>
+    <div id="editorContainer" class="editor-container"></div>
+    <div class="status-bar" id="statusBar">Loading editor...</div>
+  </div>
+
+  <!-- Preview -->
+  <div class="panel panel-preview">
+    <div class="panel-header">
+      <span>Preview</span>
+      <small>Browser render</small>
+    </div>
+    <iframe id="previewFrame"></iframe>
+  </div>
+</div>
+
+<!-- Playground ლოგიკა -->
+<script src="app.js"></script>
+
+<!-- Monaco ინიციალიზაცია -->
+<script>
+  require.config({
+    paths: {
+      'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.0/min/vs'
+    }
+  });
+
+  require(['vs/editor/editor.main'], function () {
+    if (window.initMonaco) {
+      window.initMonaco();
+    }
+  });
+</script>
+
+</body>
+</html>
